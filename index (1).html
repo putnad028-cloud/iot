@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Water Tank | Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">💧</div>
+        <div><strong>Smart Water Tank</strong><small>Hydroponic Monitor</small></div>
+      </div>
+      <nav>
+        <a class="active" href="#dashboard">▦ <span>Dashboard</span></a>
+        <a href="#history">▤ <span>Riwayat Air</span></a>
+        <a href="#control">◉ <span>Kontrol Pompa</span></a>
+        <a href="#notifications">♧ <span>Notifikasi</span></a>
+      </nav>
+      <div class="sidebar-note"><span class="dot green"></span> Mode simulasi aktif</div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">MONITORING HIDROPONIK</p>
+          <h1>Dashboard Utama</h1>
+          <p class="subtitle">Pantau ketersediaan air tandon secara praktis.</p>
+        </div>
+        <div class="date-box"><span>●</span><div><strong id="clock">--:--:--</strong><small id="date">Memuat tanggal...</small></div></div>
+      </header>
+
+      <section class="summary-grid">
+        <article class="panel level-panel">
+          <div class="panel-heading"><span class="icon blue">💧</span><span class="muted">KETINGGIAN AIR</span></div>
+          <div class="level-line"><strong id="levelValue">68%</strong><span id="levelLabel" class="pill safe">Kondisi aman</span></div>
+          <div class="progress-track"><div id="levelBar" class="progress-fill" style="width:68%"></div></div>
+          <div class="scale"><span>0%</span><span>50%</span><span>100%</span></div>
+          <p class="hint">Batas pengisian otomatis: ≤20% sampai ≥90%.</p>
+        </article>
+
+        <article class="panel stat-panel">
+          <div class="panel-heading"><span class="icon aqua">⚙</span><span class="muted">STATUS POMPA</span></div>
+          <div class="stat-value" id="pumpValue">OFF</div>
+          <span id="pumpPill" class="pill neutral">Tidak aktif</span>
+          <p class="hint">Kondisi kerja pompa pengisian tandon.</p>
+        </article>
+
+        <article class="panel stat-panel">
+          <div class="panel-heading"><span class="icon green">◉</span><span class="muted">AIR SUMBER</span></div>
+          <div class="stat-value" id="sourceValue">Tersedia</div>
+          <span id="sourcePill" class="pill safe">Sumber tersedia</span>
+          <p class="hint">Dibaca oleh water level sensor.</p>
+        </article>
+
+        <article class="panel stat-panel">
+          <div class="panel-heading"><span class="icon purple">✓</span><span class="muted">STATUS SISTEM</span></div>
+          <div class="stat-value" id="systemValue">Normal</div>
+          <span id="systemPill" class="pill safe">Semua sistem berjalan</span>
+          <p class="hint">Berdasarkan kondisi sensor dan perangkat.</p>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel chart-panel" id="history">
+          <div class="section-heading">
+            <div><p class="eyebrow">PEMANTAUAN</p><h2>Grafik Riwayat Air</h2></div>
+            <span class="live-label"><i></i> Diperbarui berkala</span>
+          </div>
+          <canvas id="historyChart" height="250" aria-label="Grafik riwayat ketinggian air"></canvas>
+          <div class="chart-footer"><span>Persentase ketinggian air</span><strong id="lastUpdate">Menunggu data</strong></div>
+        </article>
+
+        <article class="panel control-panel" id="control">
+          <div class="section-heading"><div><p class="eyebrow">PENGENDALIAN</p><h2>Kontrol Pompa Manual</h2></div></div>
+          <p class="hint">Gunakan tombol berikut untuk simulasi perintah pompa. Pada perangkat asli, pompa hanya boleh aktif jika air sumber tersedia dan tandon belum mencapai batas maksimum.</p>
+          <div class="control-status"><span class="control-indicator" id="controlIndicator"></span><div><strong id="controlText">Pompa tidak aktif</strong><small>Kontrol manual</small></div></div>
+          <button id="pumpToggle" class="primary-button">Nyalakan Pompa</button>
+          <p id="controlMessage" class="control-message">Mode demo: perubahan hanya terjadi pada tampilan browser.</p>
+          <div class="divider"></div>
+          <h3>Simulasi Sensor</h3>
+          <label for="levelSlider">Ketinggian air: <strong id="sliderValue">68%</strong></label>
+          <input id="levelSlider" type="range" min="0" max="100" value="68" />
+          <label class="switch-row"><span>Air sumber tersedia</span><input id="sourceToggle" type="checkbox" checked /><span class="switch-ui"></span></label>
+          <button id="resetDemo" class="secondary-button">Reset simulasi</button>
+        </article>
+      </section>
+
+      <section class="panel notification-panel" id="notifications">
+        <div class="section-heading">
+          <div><p class="eyebrow">PEMBERITAHUAN</p><h2>Notifikasi Otomatis</h2></div>
+          <span class="count" id="alertCount">0</span>
+        </div>
+        <div id="notificationList" class="notification-list">
+          <div class="empty-state">Belum ada peringatan. Sistem dalam kondisi normal.</div>
+        </div>
+      </section>
+      <footer>Smart Water Tank · Prototipe dashboard monitoring hidroponik</footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
